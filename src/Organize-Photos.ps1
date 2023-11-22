@@ -81,6 +81,8 @@
 function Get-DatePictureTaken($picture) {
         
     # Gets image data 
+    #Now this line fails when processing an heic file.  I haven't been able to figure out how to get this same information for the new file type.  Any ideas?
+    #The copy/move still works in the end but the script throws error, I guess this could be wrapped in an if statement and skipped but not sure if that will cause otehr problems.
     $ImgData = New-Object System.Drawing.Bitmap($picture.FullName)
 
     
@@ -238,17 +240,17 @@ function Group-Pictures($Recurse, $Scope, $target, $destination, $Operation, $Or
     switch ($Scope) {
         
         "SortCurrentDirectory" {
-            $pictures = if ($Recurse) { Get-ChildItem -Path * -Recurse -Include *.jpeg, *.png, *.gif, *.jpg, *.bmp, *.png } else { Get-ChildItem -Path * -Include *.jpeg, *.png, *.gif, *.jpg, *.bmp, *.png }
+            $pictures = if ($Recurse) { Get-ChildItem -Path * -Recurse -Include *.jpeg, *.png, *.gif, *.jpg, *.bmp, *.png, *.heic } else { Get-ChildItem -Path * -Include *.jpeg, *.png, *.gif, *.jpg, *.bmp, *.png, *.heic }
             break;
         }
 
         "SortTargetDirectory" {
-            $pictures = if ($Recurse) { Get-ChildItem -Path $target -Recurse -Include *.jpeg, *.png, *.gif, *.jpg, *.bmp, *.png} else { Get-ChildItem -Path $target -Include *.jpeg, *.png, *.gif, *.jpg, *.bmp, *.png }
+            $pictures = if ($Recurse) { Get-ChildItem -Path $target -Recurse -Include *.jpeg, *.png, *.gif, *.jpg, *.bmp, *.png, *.heic } else { Get-ChildItem -Path $target -Include *.jpeg, *.png, *.gif, *.jpg, *.bmp, *.png, *.heic }
             break;
         }
 
         "SortTargetNewDestination" {
-            $pictures = if ($Recurse) { Get-ChildItem -Path $target -Recurse -Include *.jpeg, *.png, *.gif, *.jpg, *.bmp, *.png } else { Get-ChildItem -Path $target -Include *.jpeg, *.png, *.gif, *.jpg, *.bmp, *.png }
+            $pictures = if ($Recurse) { Get-ChildItem -Path $target -Recurse -Include *.jpeg, *.png, *.gif, *.jpg, *.bmp, *.png, *.heic } else { Get-ChildItem -Path $target -Include *.jpeg, *.png, *.gif, *.jpg, *.bmp, *.png, *.heic }
             break;
         }
     }
